@@ -1,1 +1,3 @@
 # nytrepository
+
+NYT Repository is a React-based app that allows users to search for New York Times for articles, and add and save annotations for reach article. This app was created using React components, using helper/util functions, and utilizing the React mounting lifecycle to query and display articles based on user searches. Other frameworks used include Node, Express and MongoDB so that users can save articles to read later.

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import API from './../../utils/API';
 import Article from './../../Component/Article';
+import "./Home.css";
 
 class Home extends Component {
     state = {
@@ -50,29 +51,39 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <p>Articles</p>
-                {this.state.articles.map(article => (
-                    <Article
-                        key={article._id}
-                        _id={article._id}
-                        title={article.headline.main}
-                        url={article.web_url}
-                        date={article.pub_date}
-                        handleClick={this.handleArticleSave}
-                        buttonText="Save Article"
-                    />
-                ))}
+                <div class="jumbotron jumbotron-fluid jumbo-color">
+                    <div class="container">
+                        <h1 class="display-4">New York Times Annotations App </h1>
+                        <p class="lead">Search for an annotate articles of interest.</p>
+                    </div>
+                </div>
+                <div className = "card d-flex  m-2 p-2 bd-highlight">
+                    <div className="card-header box-title"  >Current NYT Articles</div>
+                    {this.state.articles.map(article => (
+                        <Article
+                            key={article._id}
+                            _id={article._id}
+                            title={article.headline.main}
+                            url={article.web_url}
+                            date={article.pub_date}
+                            handleClick={this.handleArticleSave}
+                            buttonText="Save Article"
+                        />
+                    
+                    ))}
+                    </div>
 
-                <p>Saved Articles</p>
-
-                {this.state.savedArticles.map(article => (
-                    <Article
-                        key={article._id}
-                        _id={article._id}
-                        title={article.title}
-                        buttonText="Delete Article"
-                    />
-                ))}                
+                <div className = "card d-flex  m-2 p-2 bd-highlight">
+                    <div className="card-header box-title">Saved Articles</div>
+                        {this.state.savedArticles.map(article => (
+                            <Article
+                                key={article._id}
+                                _id={article._id}
+                                title={article.title}
+                                buttonText="Delete Article"
+                            />
+                        ))} 
+                </div>               
             </div>
         );
     };
