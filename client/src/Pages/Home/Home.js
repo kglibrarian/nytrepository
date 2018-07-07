@@ -16,6 +16,8 @@ class Home extends Component {
     componentDidMount() {
         this.getArticles();
         this.getSavedArticles();
+        this.fetchArticles();
+
     }
 
     // my methods
@@ -33,10 +35,17 @@ class Home extends Component {
         .catch(err => console.log(err));
     }
 
+    fetchArticles = () => {
+        API.scrapeArticle().then(fetchedArticles => {
+            console.log(fetchedArticles)
+        })
+    }
+
     handleArticleSave = id => {
         const article = this.state.articles.find(article => article._id === id);
         API.saveArticle(article).then(res => {this.getSavedArticles();this.getArticles()});
     }
+
 
     getSavedArticles = () => {
         API.getSavedArticles()
@@ -48,13 +57,21 @@ class Home extends Component {
         .catch(err => console.log(err));
     }
 
+    deleteArticles = id => {
+        API.deleteArticle(id)
+        .then(res => 
+        this.getSavedArticles()
+    )
+    .catch(err => console.log(err));
+    }
+
     render() {
         return (
             <div>
-                <div class="jumbotron jumbotron-fluid jumbo-color">
-                    <div class="container">
-                        <h1 class="display-4">New York Times Annotations App </h1>
-                        <p class="lead">Search for an annotate articles of interest.</p>
+                <div className="jumbotron jumbotron-fluid jumbo-color">
+                    <div className="container">
+                        <h1 className="display-4">New York Times Article App </h1>
+                        <p className="lead">Search for and save articles of interest.</p>
                     </div>
                 </div>
                 <div className = "card d-flex  m-2 p-2 bd-highlight">
@@ -80,6 +97,7 @@ class Home extends Component {
                                 key={article._id}
                                 _id={article._id}
                                 title={article.title}
+                                handleClick={this.deleteArticles}
                                 buttonText="Delete Article"
                             />
                         ))} 
